@@ -27,6 +27,7 @@ ______
 
 * [Muhammet Emin Özkan](https://github.com/eminozkan) - Creator, maintainer
 
+* [Melis Ölmez](https://github.com/melisolmez) - Maintainer
   
   
 

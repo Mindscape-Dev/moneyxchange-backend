@@ -1,23 +1,53 @@
 package dev.mindscapedev.moneyxchange.core.currency.model;
 
 import dev.mindscapedev.moneyxchange.support.exceptions.InvalidCurrencyCodeException;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 import java.time.Instant;
 
+@Entity
 public class CurrencyExchangeRate {
-    CurrencyCode baseCurrencyCode;
-    CurrencyCode targetCurrencyCode;
-    String buyPrice;
-    String sellPrice;
-    Boolean isRaised;
-    Instant expirationTime;
+    @Id
+    private String code;
 
-    private CurrencyExchangeRate(){}
+    @Column(name = "baseCode")
+    private CurrencyCode baseCurrencyCode;
+
+    @Column(name= "targetCode")
+    private CurrencyCode targetCurrencyCode;
+    @Column(name = "buy")
+    private String buyPrice;
+
+    @Column(name = "sell")
+    private String sellPrice;
+
+    @Column(name = "isRaised")
+    private Boolean isRaised;
+
+    @Column(name = "expireTime")
+    private Instant expirationTime;
+
+ //   private CurrencyExchangeRate(){}
+
+    public CurrencyExchangeRate() {
+    }
 
     public static CurrencyExchangeRate createExchangeRate(String baseCurrencyCode, String targetCurrencyCode) throws InvalidCurrencyCodeException{
         return  new CurrencyExchangeRate()
+                .setCode(baseCurrencyCode+targetCurrencyCode)
                 .setBaseCurrencyCode(CurrencyCode.getCurrencyByCode(baseCurrencyCode))
                 .setTargetCurrencyCode(CurrencyCode.getCurrencyByCode(targetCurrencyCode));
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    private CurrencyExchangeRate setCode(String code) {
+        this.code = code;
+        return this;
     }
 
     public CurrencyCode getBaseCurrencyCode() {
